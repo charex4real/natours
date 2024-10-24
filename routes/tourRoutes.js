@@ -1,6 +1,8 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
+const authController = require('./../controllers/authController');
 
+// 1) SETUP ROUTER
 const router = express.Router();
 
 // 3) ROUTES
@@ -15,7 +17,7 @@ router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
 router
   .route('/')
-  .get(tourController.getAlltours)
+  .get(authController.protect, tourController.getAlltours)
   .post(tourController.createTour);
 //
 //GET BY ID  ROUTE
