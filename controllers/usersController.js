@@ -58,7 +58,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     status: 'success',
     data: null,
   });
-});
+}); 
 
 exports.createUser = (req, res) => {
   res.status(505).json({

@@ -16,6 +16,18 @@ const signToken = (id) => {
 
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
+
+  const cookieOptions = {
+    //picks todays date and convert it to the format expected by the cookie
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    ),
+    httpOnly: true,
+  };
+  if( process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwt', token, cookieOptions);
+  // Remove password from output
+  user.password = undefined;
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -76,7 +88,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   console.log(decoded);
 
   // 3) Check if the user still exist
-  const freshUser = await User.findById(decoded.id.id);
+  //const freshUser = await User.findById(decoded.id.id);
+  const freshUser = await User.findById(decoded.id);
   if (!freshUser) {
     return next(new AppError('User no longer exists', 401));
   }
@@ -187,8 +200,8 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
-  // User.findByIdAndUpdate will NOT work as intended!
-
+  // User.findByIdAndUpdate will NOT work as intended! 
+ 
   // 4) Log user in, send JWT
   createSendToken(user, 200, res);
 });

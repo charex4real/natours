@@ -38,3 +38,5 @@ const tourSchema = new mongoose.Schema({
     .catch((err) => console.log('Error:', err));
 
   
+    pm.environment.set("jwt", pm.response.json().token);
+    mongodb+srv://charex4real:<eaIpfdFjBb4yw2Bq>@cluster0.tjppx.mongodb.net/

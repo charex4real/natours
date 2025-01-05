@@ -10,7 +10,7 @@ router.post('/login', authController.login);
 
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
-
+// patch is when we are manipulating the user document
 router.patch(
   '/updateMyPassword',
   authController.protect,
