@@ -12,7 +12,7 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD,
 );
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8'),
+  fs.readFileSync(`${__dirname}/dev-data/data/tours.json`, 'utf-8'),
 );
 
 mongoose
