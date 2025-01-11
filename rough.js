@@ -43,7 +43,8 @@ const tourSchema = new mongoose.Schema({
     git rm -r –cached node_modules
      && 
     git commit -m “Remove node_modules”
-
+    git add -A
+    
     //Security Approaches Path Traversal
     //Poison Null Bytes Attack
     // To prevent this kind of attack from thwarting security, 
